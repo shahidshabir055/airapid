@@ -10,26 +10,24 @@ import { EmployeeService } from '../employee.service';
   styleUrls: ['./add-employee.component.css']
 })
 export class AddEmployeeComponent implements OnInit {
-
+  data: any;
   formInstance: FormGroup;
-  constructor(public dialogRef: MatDialogRef<AddEmployeeComponent>, service: EmployeeService,
-              private fb: FormBuilder, public data: Employee) {
+  constructor(public dialogRef: MatDialogRef<AddEmployeeComponent>, private service: EmployeeService,
+              private fb: FormBuilder) {
     this.formInstance = this.fb.group({
       name: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required),
       about: new FormControl('', Validators.required),
       joiningDate: new FormControl('', Validators.required),
     });
-    // this.formInstance.setValue(data);
-    service.AddItem(this.formInstance.value);
-    this.dialogRef.close();
+    this.data = this.formInstance.value;
   }
 
   ngOnInit(): void {
   }
-
   save(): void {
-    this.dialogRef.close(Object.assign(new Employee(), this.formInstance.value));
+    this.service.AddItem(this.formInstance.value);
+    this.dialogRef.close();
   }
 
 }

@@ -14,7 +14,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule} from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
-import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -29,6 +28,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { CdkTableModule } from '@angular/cdk/table';
 import { EmployeeFormComponent } from './Employee-form/employee-form.component';
 import {  EmployeeService } from './employee.service';
+import { DeleteConformationComponent } from './delete-conformation/delete-conformation.component';
+import { EmployeeCardComponent } from './employee-card/employee-card.component';
+import { MatCardModule } from '@angular/material/card';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -37,9 +43,11 @@ import {  EmployeeService } from './employee.service';
     LoginComponent,
     FooterComponent,
     AddEmployeeComponent,
-    UpdateEmployeeComponent,
     EmployeeListComponent,
-    EmployeeFormComponent
+    EmployeeFormComponent,
+    DeleteConformationComponent,
+    EmployeeCardComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +69,8 @@ import {  EmployeeService } from './employee.service';
     MatDialogModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCardModule,
   ],
   providers: [EmployeeService],
   bootstrap: [AppComponent]

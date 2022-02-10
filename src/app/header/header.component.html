@@ -5,6 +5,13 @@
     </a>
     <h1>RapidKen</h1>
     <span class="menu-spacer"></span>
+    <span class="spacer"></span>
+    <button mat-button  routerLink='/'>Home</button>
+    <form class="search-form">
+      <a mat-icon-button>
+        <mat-icon  (click)="sidenav.toggle()">menu</mat-icon>
+        </a>
+    </form>
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-sidenav-container>
@@ -12,7 +19,7 @@
     <mat-nav-list>
 
       <a mat-list-item [routerLink]="'/login'"> Login </a>
-      <a mat-list-item [routerLink]="'employeeList'"> Employee </a>
+      <a mat-list-item (click)="getNextPage()"> Employee </a>
       <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
 
     </mat-nav-list>

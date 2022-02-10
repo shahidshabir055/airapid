@@ -1,75 +1,86 @@
-<div class="container">
-<div>
-  <button mat-icon-button (click)="addEmployee()">
-    <mat-icon mat-icon-button color="warn">Add</mat-icon>
-  </button>
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-    <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-      <th mat-header-cell *matHeaderCellDef>
-        <div style="display: flex; align-items: center;">
-          <span mat-sort-header>{{column}}</span>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
-    </ng-container>
-
-    <ng-container [matColumnDef]="'actions'">
-      <th mat-header-cell *matHeaderCellDef> actions </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button (click)="edit(element)">
-          <mat-icon mat-icon-button color='primary'>edit</mat-icon>
-        </button>
-        <button mat-icon-button (click)="delete(element['name'])">
-          <mat-icon mat-icon-button color="warn">delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
-  </table>
-  <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 50]" showFirstLastButtons></mat-paginator>
-</div>
-
-<!-- menu for column filtering-->
-<mat-menu #menu="matMenu" class="matMenu">
-  <ng-template matMenuContent let-dataColumnName="columnName">
-    <div class="flex-column" (click)="$event.stopPropagation();">
-      <div class="mb-5">
-
-        <mat-form-field class="fullWidth" appearance="outline">
-          <mat-label>Choose a filter *</mat-label>
-          <mat-select #selectedOperationFilter [value]="'contains'">
-            <mat-option value="contains" select>Contains</mat-option>
-            <mat-option value="equals">Equals</mat-option>
-            <mat-option value="greaterThan">Greater than</mat-option>
-            <mat-option value="lessThan">Less than</mat-option>
-            <mat-option value="endWith">End with</mat-option>
-            <mat-option value="startWith">Start With</mat-option>
-          </mat-select>
-        </mat-form-field>
-
+<div class="flex-container cont">
+  <div class="container">
+    <div class="row">
+      <div class="col-3 mt-2">
+        <button mat-raised-button color="primary" (click)="addEmployee()">+ADD NEW EMPLOYEE</button>
       </div>
-      <div class="mb-5 fullWidth">
-        <mat-form-field class="fullWidth" appearance="outline">
-          <mat-label>write a value*</mat-label>
-          <input matInput #searchValue type="text">
+      <div class="col-6 mt-2">
+        <mat-form-field class="example-full-width" floatLabel="never" color="primary">
+          <input class="toolbar-search" type="text" #box (keyup)="doFilter(box.value)" matInput placeholder="search">
+          <mat-icon matSuffix style="font-size: 1.2em">search</mat-icon>
         </mat-form-field>
       </div>
-      <div class="fullWidth flex-row mb-5 flex-justify-space-between">
-        <button [disabled]="!searchValue.value" mat-raised-button color="primary"
-          class="flex-row flex-align-center btn-filter-action"
-          (click)="applyFilter(dataColumnName)">
-          <mat-icon>check</mat-icon>
-          <label>filter</label>
-        </button>
-        <!-- <button mat-raised-button class="flex-row flex-align-center btn-filter-action" color="warn"
-          (click)="clearFilter(dataColumnName)">
-          <mat-icon>clear</mat-icon>
-          <label>reset</label>
-        </button> -->
+      <div class="col-3 mt-2 flex justify-content-right">
+        <button mat-raised-button color="warn" (click)="logout()">Logout</button>
       </div>
     </div>
-  </ng-template>
-</mat-menu>
-</div>
 
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+        <th mat-header-cell *matHeaderCellDef>
+          <div style="display: flex; align-items: center;">
+            <span mat-sort-header>{{column}}</span>
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+      </ng-container>
+
+      <ng-container [matColumnDef]="'actions'">
+        <th mat-header-cell *matHeaderCellDef> actions </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="edit(element)">
+            <mat-icon mat-icon-button color='primary'>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="delete(element.name)">
+            <mat-icon mat-icon-button color="warn">delete</mat-icon>
+          </button>
+          <button mat-icon-button (click)="viewCard(element)">
+            <mat-icon>remove_red_eye</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 7, 10,20, 50]" showFirstLastButtons></mat-paginator>
+  </div>
+
+  <!-- menu for column filtering-->
+  <mat-menu #menu="matMenu" class="matMenu">
+    <ng-template matMenuContent let-dataColumnName="columnName">
+      <div class="flex-column" (click)="$event.stopPropagation();">
+        <!-- <div class="mb-5">
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Choose a filter *</mat-label>
+            <mat-select #selectedOperationFilter [value]="'contains'">
+              <mat-option value="contains" select>Contains</mat-option>
+              <mat-option value="equals">Equals</mat-option>
+              <mat-option value="greaterThan">Greater than</mat-option>
+              <mat-option value="lessThan">Less than</mat-option>
+              <mat-option value="endWith">End with</mat-option>
+              <mat-option value="startWith">Start With</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div> -->
+        <div class="mb-5 fullWidth">
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>write a value*</mat-label>
+            <input matInput #searchValue type="text">
+          </mat-form-field>
+        </div>
+        <div class="fullWidth flex-row mb-5 flex-justify-space-between">
+          <button [disabled]="!searchValue.value" mat-raised-button color="primary"
+            class="flex-row flex-align-center btn-filter-action" (click)="applyFilter(dataColumnName)">
+            <mat-icon>check</mat-icon>
+            <label>filter</label>
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </mat-menu>
+</div>
+<div class="footer">
+  <app-footer></app-footer>
+</div>

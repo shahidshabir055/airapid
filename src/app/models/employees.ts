@@ -1,9 +1,9 @@
 export class Employee {
 
-  name: string;
-  about: string;
-  position: string;
-  joiningDate: string;
+  name: any;
+  about: any;
+  position: any;
+  joiningDate: any;
 
   constructor(name: string = '', about: string = '', job: string = '', joiningDate: string = '') {
     this.name = name;

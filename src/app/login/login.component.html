@@ -1,1 +1,31 @@
-<p>login works!</p>
+<div class="flex-container cont d-flex justify-content-center">
+  <div class="d-flex justify-content-center">
+  <mat-card style="height: fit-content; margin-top: 10px; width: 400px;">
+  <mat-card-title>Login Form</mat-card-title>
+  <h3>username and password is admin</h3>
+  <form [formGroup]="loginForm">
+    <div>
+      <mat-form-field class="fullWidth" appearance="standard">
+        <mat-label>Username *</mat-label>
+        <input matInput type="text" name="username" formControlName="username">
+        <mat-error *ngIf="loginForm.controls['username']?.errors?.required">field required</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="mt-5">
+      <mat-form-field class="fullWidth" appearance="standard">
+        <mat-label>Password *</mat-label>
+        <input matInput type="text" name="password" formControlName="password" />
+        <mat-error *ngIf="loginForm.controls['password']?.errors?.required">field required</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+  <div class="mt-5">
+    <button mat-raised-button color="primary" (click)="onSubmit()" cdkFocusInitial>Login</button>
+    <button mat-raised-button mat-dialog-close>Back</button>
+  </div>
+</mat-card>
+</div>
+<div class="footer">
+  <app-footer></app-footer>
+</div>
+</div>

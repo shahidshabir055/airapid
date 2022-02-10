@@ -123,9 +123,16 @@
               "devServerTarget": "rapidManager:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
     }
   },
-  "defaultProject": "rapidManager"
+  "defaultProject": "rapidManager",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
